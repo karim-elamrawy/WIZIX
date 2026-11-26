@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WIZIX Security Center — Windows Endpoint Dashboard</title>
+<meta name="description" content="Wizix تطبيق حماية يتعلم نشاطك الطبيعي ويكتشف أي سلوك غريب، مع خزنة مشفّرة وفحص أمني ومساعد أمني. Wizix learns your normal behavior and detects anomalies, with an encrypted vault and security scan.">
+<meta name="keywords" content="Wizix, حماية, تحليل سلوك, Behavioral Analysis, Anomaly Detection, خزنة مشفرة, فحص أمني, security app">
+<meta name="theme-color" content="#070b1a">
+<meta property="og:title" content="Wizix – Behavioral Security App">
+<meta property="og:description" content="Learns your normal activity and detects anomalies. Encrypted vault, security scan, bilingual.">
+<meta property="og:type" content="website">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Wizix","applicationCategory":"SecurityApplication","operatingSystem":"Windows, macOS, Linux, Android, iOS","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"inLanguage":["ar","en"]}</script>
+<style>
+:root{--bg:#070b1a;--cd:#0e1530;--cd2:#141d40;--tx:#e8edff;--mu:#8a96c4;--cy:#22d3ee;--bl:#3b82f6;--pu:#a855f7;--gn:#34d399;--am:#fbbf24;--rd:#fb4b6a;--ln:#1f2a55;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:radial-gradient(900px 500px at 50% -10%,#1b2a6b55,transparent),var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;line-height:1.6;overflow-x:hidden}
+#v{max-width:680px;margin:0 auto;padding:12px 14px 110px;animation:fi .35s ease}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes pu{0%,100%{filter:drop-shadow(0 0 8px #22d3ee66)}50%{filter:drop-shadow(0 0 26px #a855f7aa)}}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.ph{font-size:20px;margin:6px 0 12px}
+h3{font-size:14px;margin:0 0 8px;color:var(--mu);font-weight:600}
+.c{background:linear-gradient(160deg,var(--cd2),var(--cd));border:1px solid var(--ln);border-radius:18px;padding:14px;margin-bottom:12px;box-shadow:0 0 0 1px #22d3ee0d,0 8px 24px #0006}
+.hero{text-align:center;padding:18px 10px}
+.pul{display:inline-block;animation:pu 3s ease-in-out infinite}
+.st{display:block;font-size:30px;letter-spacing:2px}.gn{color:var(--gn)}.rd{color:var(--rd)}.am{color:var(--am)}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+.mini{text-align:center;margin:0;padding:12px 6px}.mini span{font-size:26px;display:block}.mini b{font-size:18px;display:block}
+.row{display:flex;align-items:center;gap:12px;cursor:pointer}
+.ic{font-size:34px;width:50px;height:50px;display:grid;place-items:center;background:#22d3ee12;border-radius:14px}
+.tg{margin-inline-start:auto;font-size:11px;padding:3px 10px;border-radius:20px;background:#22d3ee1f;color:var(--cy);white-space:nowrap}
+.em{background:linear-gradient(90deg,#fb4b6a33,#a855f733);border-color:var(--rd);cursor:pointer;font-weight:700}
+.bar{height:10px;background:var(--ln);border-radius:6px;overflow:hidden;margin:8px 0}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--cy),var(--bl),var(--pu));transition:width .4s}
+button{padding:11px 16px;border-radius:12px;border:1px solid var(--ln);background:var(--cd2);color:var(--tx);font:inherit;font-size:14px;cursor:pointer}
+button.p{background:linear-gradient(90deg,var(--cy),var(--bl),var(--pu));border:0;color:#fff;font-weight:700}
+button.big{width:100%;padding:15px;font-size:16px;margin-bottom:12px}
+button.d{color:var(--rd)}
+.linkbtn{border:0;background:transparent;padding:2px 4px;color:#72cfff;text-align:start}
+input,textarea{width:100%;border-radius:12px;border:1px solid var(--ln);background:#070b1a;color:var(--tx);padding:11px;font:inherit;margin:4px 0}
+.r{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.tb{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:13px}
+td,th{padding:6px 4px;text-align:start;border-bottom:1px solid var(--ln);white-space:nowrap}
+.it{padding:8px 0;border-bottom:1px solid var(--ln);font-size:14px}
+.ok{color:var(--gn)}.wr{color:var(--am)}.bd{color:var(--rd)}.in{color:var(--cy)}
+small,.m{color:var(--mu);font-size:12px}
+.bk{color:var(--cy);cursor:pointer;margin:4px 0 8px;font-size:14px}
+.msg{padding:8px 12px;border-radius:14px;margin:6px 0;max-width:88%;font-size:14px;white-space:pre-wrap}
+.me{background:linear-gradient(90deg,var(--bl),var(--pu));margin-inline-start:auto}.bot{background:var(--bg);border:1px solid var(--ln)}
+.pl{border-color:var(--pu)}
+nav{position:fixed;bottom:0;left:0;right:0;background:#0b1128f2;backdrop-filter:blur(10px);border-top:1px solid var(--ln);display:flex;justify-content:space-around;padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px))}
+nav a{flex:1;text-align:center;font-size:11px;color:var(--mu);padding:4px 0;cursor:pointer}
+nav a.on{color:var(--cy);font-weight:700;text-shadow:0 0 10px #22d3ee88}nav a span{display:block;font-size:24px}
+.wel{min-height:80vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px}
+.shield{animation:fl 3.5s ease-in-out infinite,pu 3s ease-in-out infinite}
+.logo{font-size:44px;letter-spacing:8px;margin:0;background:linear-gradient(90deg,var(--cy),var(--bl),var(--pu));-webkit-background-clip:text;background-clip:text;color:transparent}
+.wel button{max-width:320px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+#v .mini{display:inline-flex;flex-direction:column;gap:4px;padding:10px 13px;min-width:76px}#v .mini b{font-size:22px;color:#65c5ff}#v button:disabled{opacity:.55;cursor:wait}
+
+/* WIZIX desktop SOC layout */
+@media(min-width:900px){
+ body{background:radial-gradient(1000px 600px at 65% -15%,#17285a55,transparent),#070a12}
+ #nv{top:0;bottom:0;right:0;left:auto;width:238px;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-start;align-items:stretch;gap:8px;padding:28px 14px;background:linear-gradient(180deg,#0c1220f7,#080d18f7);border-top:0;border-left:1px solid #202c40;box-shadow:-18px 0 45px #0005;z-index:20}
+ #nv:before{content:'WIZIX';display:block;font-size:25px;font-weight:850;letter-spacing:5px;padding:8px 14px 26px;color:#dceaff;text-shadow:0 0 22px #39bdf766}
+ #nv a{flex:none;text-align:right;display:flex;align-items:center;gap:14px;padding:13px 14px;border-radius:12px;font-size:14px;color:#9caec6;border:1px solid transparent;transition:.2s}
+ #nv a span{display:inline-grid;place-items:center;width:27px;font-size:21px}
+ #nv a.on{background:linear-gradient(100deg,#123c574d,#29204a88);border-color:#28516c;color:#e8f7ff;text-shadow:none;box-shadow:inset 3px 0 #35c6ec}
+ #v{max-width:none;margin:0 0 0 0;margin-right:238px;padding:30px 34px 55px;min-height:100vh;animation:fi .25s ease}
+ #v>.ph{font-size:25px;margin:0 0 22px;padding-bottom:16px;border-bottom:1px solid #1e2b3c;color:#edf5ff}
+ #v .c{border-radius:15px;background:linear-gradient(145deg,#111c2b,#0c1420);border-color:#1d3044;box-shadow:0 12px 34px #0004}
+ #v .g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+ #v .mini{min-width:110px;padding:15px 18px;background:#101d2c;border:1px solid #1e3448;border-radius:12px}
+ #v .mini b{font-size:25px}
+ #v table{font-size:13px}
+ #v td,#v th{padding:10px 12px}
+ #v .r button{min-width:125px}
+}
+@media(min-width:1250px){#v{padding:34px 46px 60px}#v .g3{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:899px){#nv{z-index:30}}
+
+</style>
+</head>
+<body>
+<div id="v"></div>
+<nav id="nv"></nav>
+<script>
+const $=s=>document.querySelector(s);
+const TABS=[['home','🏠','الرئيسية','Home'],['protect','🛡️','الحماية','Protection'],['scan','🔍','الفحص','Scan'],['tools','🧰','الأدوات','Tools'],['profile','👤','حسابي','Profile']];
+const g=(k,d)=>{try{const r=localStorage.getItem(k);return r?JSON.parse(r):d}catch(e){return d}};
+const p=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+var READY=false;
+let lang=g('bg_lang',(navigator.language||'').startsWith('ar')?'ar':'en'),tab='home',sub=null;
+let B=g('bg_b',{mode:'learn',n:0,st:{}}),LOG=g('bg_log',[]),LF=null,LZ=null,RISK=0,HIST=g('bg_hist',[]);
+const TARGET=15,WIN=5000;
+const T={
+ ar:{status:'الحالة',logs:'السجل',scan:'الفحص',vault:'الخزنة',chat:'المساعد',pro:'Pro',secure:'آمن',alert:'تنبيه',
+ learn:'وضع التعلّم: بيتعلّم نشاطك الطبيعي',mon:'وضع المراقبة',risk:'درجة الخطر',win:'فترات اتحلّلت',metric:'المؤشر',now:'دلوقتي',usual:'المعتاد',dev:'الفرق',
+ ev:'عدد الأحداث',speed:'سرعة المؤشر',keyInt:'زمن بين الضغطات',clicks:'النقرات',scrolls:'التمرير',
+ relearn:'ابدأ التعلّم من الأول',notifOn:'شغّل إشعارات الحماية',notifDone:'الإشعارات شغّالة',notifNo:'الإشعارات مش مدعومة أو اترفضت',
+ nolog:'مفيش أحداث لسه.',clr:'امسح السجل',scanBtn:'ابدأ الفحص العميق',scanNote:'بيفحص بيئة المتصفح والصفحة والصلاحيات. المتصفحات مبتسمحش بقراءة قائمة التطبيقات المثبّتة؛ ده محتاج تطبيق أصلي.',
+ vSetup:'اعمل كلمة سر رئيسية (8 حروف على الأقل). مش هتقدر ترجّعها لو نسيتها.',vPw:'كلمة السر الرئيسية',vMk:'اعمل الخزنة',vOpen:'افتح',vLock:'اقفل',vTitle:'العنوان',vText:'المحتوى السري',vAdd:'احفظ مشفّر',vBad:'كلمة السر غلط',vShort:'كلمة السر قصيرة',vDel:'امسح',vNote:'التشفير AES-256-GCM جوه جهازك بس، والخزنة بتتقفل لوحدها لما تسيب الصفحة.',
+ chIn:'اسأل عن أمانك...',send:'ابعت',chNote:'مساعد أمني محلي بيشتغل بقواعد وبيانات حالتك الفعلية (مش ذكاء اصطناعي سحابي).',
+ plF:'مجاني (الحالي)',plP:'Pro (قريباً)',join:'سجّل اهتمامك',joined:'اهتمامك اتسجّل على الجهاز ده',proNote:'الدفع لسه مش شغّال؛ محتاج سيرفر وبوابة دفع. مفيش أي شراء وهمي هيظهر لك.'},
+ en:{status:'Status',logs:'Logs',scan:'Scan',vault:'Vault',chat:'Assistant',pro:'Pro',secure:'SECURE',alert:'ALERT',
+ learn:'Learning mode: studying your normal activity',mon:'Monitoring mode',risk:'Risk score',win:'Windows analyzed',metric:'Metric',now:'Now',usual:'Usual',dev:'Deviation',
+ ev:'Event count',speed:'Pointer speed',keyInt:'Key interval',clicks:'Clicks',scrolls:'Scrolls',
+ relearn:'Relearn',notifOn:'Enable protection notifications',notifDone:'Notifications enabled',notifNo:'Notifications unsupported or denied',
+ nolog:'No events yet.',clr:'Clear log',scanBtn:'Start deep scan',scanNote:'Scans the browser, page and permissions. Browsers cannot read the installed apps list; that needs a native app.',
+ vSetup:'Create a master password (8+ chars). It cannot be recovered if forgotten.',vPw:'Master password',vMk:'Create vault',vOpen:'Unlock',vLock:'Lock',vTitle:'Title',vText:'Secret content',vAdd:'Save encrypted',vBad:'Wrong password',vShort:'Password too short',vDel:'Delete',vNote:'AES-256-GCM encryption on your device only. Auto-locks when you leave the page.',
+ chIn:'Ask about your security...',send:'Send',chNote:'A local security assistant using rules and your real status data (not a cloud AI).',
+ plF:'Free (current)',plP:'Pro (coming soon)',join:'Join waitlist',joined:'Interest saved on this device',proNote:'Payments are not enabled yet; they need a server and payment gateway. No fake purchase is shown.'}
+};
+const t=k=>T[lang][k]||k;
+const F=['ev','speed','keyInt','clicks','scrolls'];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+// ---------- logs ----------
+function addLog(sev,ar,en){
+  LOG.unshift({ts:Date.now(),sev,ar,en});LOG=LOG.slice(0,100);p('bg_log',LOG);
+  if(sev==='bd'||sev==='wr')notify(lang==='ar'?ar:en);
+  if(READY&&(tab==='home'||sub==='logs'))view();
+}
+function isAlert(){return LOG.some(l=>l.sev==='bd'&&Date.now()-l.ts<600000)}
+function notify(m){try{if(g('bg_notif',false)&&Notification.permission==='granted')new Notification('Wizix',{body:m})}catch(e){}}
+async function toggleNotif(){
+  try{const r=await Notification.requestPermission();p('bg_notif',r==='granted');addLog(r==='granted'?'ok':'wr',r==='granted'?'الإشعارات اشتغلت':'الإشعارات اترفضت',r==='granted'?'Notifications enabled':'Notifications denied')}
+  catch(e){addLog('wr','الإشعارات مش مدعومة هنا','Notifications unsupported here')}
+}
+
+// ---------- device fingerprint ----------
+const n=navigator;
+const INFO={platform:n.platform||'?',lang:n.language,tz:Intl.DateTimeFormat().resolvedOptions().timeZone,screen:screen.width+'x'+screen.height,touch:n.maxTouchPoints||0,cores:n.hardwareConcurrency||'?',ua:(n.userAgent.match(/(Chrome|Firefox|Safari|Edg)\/[\d.]+/)||['?'])[0]};
+const FP=JSON.stringify(INFO);
+const oldFp=g('bg_fp',null);
+if(oldFp&&oldFp!==FP)addLog('bd','بصمة الجهاز أو المتصفح اتغيّرت من آخر مرة','Device or browser fingerprint changed since last session');
+p('bg_fp',FP);
+
+// ---------- real system events ----------
+document.addEventListener('visibilitychange',()=>{
+  if(document.hidden){lockVault();addLog('in','سبت الصفحة','Page hidden / user left')}else addLog('in','رجعت للصفحة','User returned to page');
+});
+addEventListener('online',()=>addLog('in','النت رجع','Back online'));
+addEventListener('offline',()=>addLog('wr','النت فصل','Went offline'));
+['copy','cut','paste'].forEach(e=>document.addEventListener(e,()=>addLog('in','عملية '+({copy:'نسخ',cut:'قص',paste:'لصق'})[e],'Clipboard '+e)));
+try{n.connection&&n.connection.addEventListener('change',()=>addLog('in','الشبكة اتغيّرت: '+n.connection.effectiveType,'Network changed: '+n.connection.effectiveType))}catch(e){}
+try{n.getBattery&&n.getBattery().then(b=>{b.addEventListener('chargingchange',()=>addLog('in',b.charging?'الشحن بدأ':'الشحن وقف',b.charging?'Charging started':'Charging stopped'));b.addEventListener('levelchange',()=>{if(b.level<=0.15&&!b.charging)addLog('wr','البطارية قربت تخلص','Battery low')})})}catch(e){}
+addEventListener('orientationchange',()=>addLog('in','اتجاه الشاشة اتغيّر','Screen orientation changed'));
+
+// ---------- behavior engine ----------
+let w,lx=null,ly=null,lk=0;
+const rs=()=>{w={ev:0,dist:0,keys:[],clicks:0,scrolls:0}};rs();
+addEventListener('pointermove',e=>{if(lx!==null)w.dist+=Math.hypot(e.clientX-lx,e.clientY-ly);lx=e.clientX;ly=e.clientY;w.ev++},{passive:true});
+addEventListener('pointerup',()=>{lx=null});
+addEventListener('pointerdown',()=>{w.clicks++;w.ev++},{passive:true});
+addEventListener('keydown',()=>{const x=performance.now();if(lk&&x-lk<2000)w.keys.push(x-lk);lk=x;w.ev++},{passive:true});
+addEventListener('scroll',()=>{w.scrolls++;w.ev++},{passive:true,capture:true});
+addEventListener('wheel',()=>{w.scrolls++;w.ev++},{passive:true});
+function upd(f,x){const s=B.st[f]||(B.st[f]={n:0,m:0,m2:0});s.n++;const d=x-s.m;s.m+=d/s.n;s.m2+=d*(x-s.m)}
+function zz(f,x){const s=B.st[f];if(!s||s.n<5)return null;const sd=Math.max(Math.sqrt(s.m2/(s.n-1)),Math.abs(s.m)*.3,1);return Math.abs(x-s.m)/sd}
+setInterval(()=>{
+  if(w.ev>=3){
+    const ft={ev:w.ev,speed:w.dist>0?w.dist/(WIN/1000):null,keyInt:w.keys.length>=3?w.keys.reduce((a,b)=>a+b,0)/w.keys.length:null,clicks:w.clicks,scrolls:w.scrolls};
+    LF=ft;
+    if(B.mode==='learn'){
+      F.forEach(f=>{if(ft[f]!==null)upd(f,ft[f])});B.n++;LZ=null;
+      if(B.n>=TARGET){B.mode='monitor';addLog('ok','التعلّم خلص والمراقبة بدأت','Learning complete; monitoring started')}
+    }else{
+      const z={};let mx=0,tp=null;
+      F.forEach(f=>{if(ft[f]!==null){const v=zz(f,ft[f]);z[f]=v;if(v!==null&&v>mx){mx=v;tp=f}}});
+      LZ=z;RISK=Math.min(100,Math.round(mx/4*100));
+      if(mx>=4)addLog('bd','سلوك غريب جداً: '+T.ar[tp]+' ('+mx.toFixed(1)+'σ)','Highly abnormal behavior: '+T.en[tp]+' ('+mx.toFixed(1)+'σ)');
+      else if(mx>=2.5)addLog('wr','سلوك مشبوه: '+T.ar[tp]+' ('+mx.toFixed(1)+'σ)','Suspicious behavior: '+T.en[tp]+' ('+mx.toFixed(1)+'σ)');
+      else F.forEach(f=>{if(ft[f]!==null)upd(f,ft[f])});
+    }
+    HIST.push({ts:Date.now(),ev:ft.ev,r:RISK});HIST=HIST.slice(-120);p('bg_hist',HIST);p('bg_b',B);if(tab==='home'&&!sub)view();
+  }
+  rs();
+},WIN);
+
+// ---------- scan ----------
+
+// ---------- WIZIX Windows local security agent ----------
+let SC=null, scanning=false, winReport=null, defenderBusy=false;
+async function api(path, options={}){
+  const controller=new AbortController();
+  const timer=setTimeout(()=>controller.abort(), path==='scan'?90000:30000);
+  try{
+    const r=await fetch('/api/'+path, {cache:'no-store', ...options, signal:controller.signal});
+    const raw=await r.text(); let data={};
+    try{data=raw?JSON.parse(raw):{}}catch(_){throw new Error('استجابة غير مفهومة من محرك Windows. أعد تشغيل START_WIZIX.bat.');}
+    if(!r.ok) throw new Error(data.error||('HTTP '+r.status));
+    return data;
+  }catch(e){
+    if(e.name==='AbortError')throw new Error('انتهت مهلة العملية. قد تكون صلاحيات Windows أو حجم البيانات سبب التأخير.');
+    if(e instanceof TypeError)throw new Error('محرك WIZIX المحلي غير متصل. شغّل START_WIZIX.bat واترك نافذة التشغيل مفتوحة.');
+    throw e;
+  }finally{clearTimeout(timer)}
+}
+async function scan(){
+  if(scanning)return;
+  scanning=true;view();
+  try{
+    winReport=await api('scan');
+    for(const k of ['apps','processes','startup','network','extensions']){
+      if(!Array.isArray(winReport[k]))winReport[k]=winReport[k]?[winReport[k]]:[];
+    }
+    SC={R:[],ts:Date.now()};
+    addLog('ok','اكتمل فحص مكونات Windows المتاحة','Windows inventory scan completed');
+  }catch(e){
+    addLog('wr','تعذر الاتصال بمحرك فحص Windows: '+e.message,'Could not reach Windows scan agent: '+e.message);
+  }finally{scanning=false;view()}
+}
+async function runDefender(kind){
+  if(defenderBusy)return;
+  if(!confirm(lang==='ar'?(kind==='full'?'هيبدأ Microsoft Defender فحص كامل لكل الملفات والبرامج. قد يستغرق وقتًا طويلًا. نبدأ؟':'هيبدأ Microsoft Defender فحصًا سريعًا. نبدأ؟'):(kind==='full'?'Microsoft Defender will start a full scan of files and programs. This may take a long time. Continue?':'Microsoft Defender will start a quick scan. Continue?')))return;
+  defenderBusy=true;view();
+  try{
+    const d=await api('defender/scan',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:kind})});
+    addLog('in',d.message_ar||'تم إرسال طلب الفحص إلى Microsoft Defender',d.message||'Scan request sent to Microsoft Defender');
+    alert(lang==='ar'?(d.message_ar||'تم إرسال طلب الفحص'):(d.message||'Scan request sent'));
+  }catch(e){alert((lang==='ar'?'تعذر بدء الفحص: ':'Could not start scan: ')+e.message)}
+  finally{defenderBusy=false;view()}
+}
+let URLR=null;
+async function checkUrl(){
+  const el=document.querySelector('#wizix-url');if(!el||!el.value.trim())return;
+  try{URLR=await api('url-check',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:el.value.trim()})});}
+  catch(e){URLR={error:e.message};}
+  view();
+}
+async function refreshWinReport(){
+  scanning=true;view();
+  try{winReport=await api('scan')}
+  catch(e){alert((lang==='ar'?'خطأ الاتصال: ':'Connection error: ')+e.message)}
+  finally{scanning=false;view()}
+}
+
+let fileListing=null, fileBusy=false, filePath='';
+async function browseFiles(path){
+  if(fileBusy)return; fileBusy=true; filePath=path||''; view();
+  try{fileListing=await api('files?path='+encodeURIComponent(filePath));}
+  catch(e){fileListing={error:e.message,path:filePath,entries:[]};}
+  finally{fileBusy=false;view();}
+}
+function fileBrowserView(){
+ const ar=lang==='ar';
+ if(!fileListing)return `<div class="c"><h3>📁 ${ar?'مستكشف ملفات الجهاز':'Device file explorer'}</h3><p class="m">${ar?'اعرض محتويات أي مجلد تختاره. العرض للقراءة فقط ولا يفتح أو يعدّل الملفات.':'Browse a folder you choose. Read-only listing; files are not opened or modified.'}</p><input id="wizix-file-path" placeholder="C:\Users\YourName\Documents"><div class="r"><button class="p" onclick="browseFiles(document.getElementById('wizix-file-path').value.trim())">${ar?'عرض المجلد':'Browse folder'}</button><button onclick="browseFiles('')">${ar?'الأقراص المتاحة':'Available drives'}</button></div></div>`;
+ const entries=fileListing.entries||[];
+ return `<div class="c"><h3>📁 ${ar?'مستكشف الملفات':'File explorer'} <span class="tg">${entries.length} ${ar?'عنصر':'items'}</span></h3><div class="m" style="direction:ltr;text-align:left;word-break:break-all">${esc(fileListing.path||'Available drives')}</div><div class="r"><button onclick="browseFiles('')">${ar?'الأقراص':'Drives'}</button><button onclick="browseFiles(fileListing.path?fileListing.path.replace(/[\\/][^\\/]+[\\/]?$/,''): '')" ${!fileListing.path?'disabled':''}>${ar?'المجلد الأعلى':'Parent folder'}</button><button onclick="browseFiles(fileListing.path)">${ar?'تحديث':'Refresh'}</button></div>${fileListing.error?`<p class="wr">${esc(fileListing.error)}</p>`:''}<div class="tb"><table><thead><tr><th>${ar?'الاسم':'Name'}</th><th>${ar?'النوع':'Type'}</th><th>${ar?'الحجم':'Size'}</th><th>${ar?'آخر تعديل':'Modified'}</th></tr></thead><tbody>${entries.map(o=>`<tr><td>${o.kind==='folder'?`<button class="linkbtn" onclick="browseFiles(${JSON.stringify(o.path).replace(/'/g,'&#39;')})">📁 ${esc(o.name)}</button>`:`📄 ${esc(o.name)}`}</td><td>${esc(o.kind)}</td><td>${o.size==null?'—':(o.size<1024?o.size+' B':(o.size/1024/1024).toFixed(2)+' MB')}</td><td>${esc(o.modified||'—')}</td></tr>`).join('')||`<tr><td colspan="4">${ar?'المجلد فارغ أو لا توجد عناصر قابلة للعرض.':'Folder is empty or no entries are accessible.'}</td></tr>`}</tbody></table></div>${fileListing.truncated?`<small>${ar?'تم إظهار أول 500 عنصر فقط في هذا المجلد.':'Showing first 500 entries in this folder.'}</small>`:''}</div>`;
+}
+// ---------- vault ----------
+let VK=null,VI=[],vmsg='';
+const V=()=>g('bg_vault',null);
+const E=new TextEncoder(),D=new TextDecoder();
+const b64=b=>btoa(String.fromCharCode(...new Uint8Array(b)));
+const ub=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+async function derive(pw,salt){const k=await crypto.subtle.importKey('raw',E.encode(pw),'PBKDF2',false,['deriveKey']);return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:250000,hash:'SHA-256'},k,{name:'AES-GCM',length:256},false,['encrypt','decrypt'])}
+async function seal(x){const iv=crypto.getRandomValues(new Uint8Array(12));return{iv:b64(iv),d:b64(await crypto.subtle.encrypt({name:'AES-GCM',iv},VK,E.encode(x)))}}
+async function opn(o){return D.decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:ub(o.iv)},VK,ub(o.d)))}
+async function vOpen(setup){
+  const pw=$('#vpw').value;vmsg='';
+  if(setup){
+    if(pw.length<8){vmsg=t('vShort');return view()}
+    const salt=crypto.getRandomValues(new Uint8Array(16));VK=await derive(pw,salt);
+    p('bg_vault',{salt:b64(salt),check:await seal('ok'),items:[]});VI=[];addLog('ok','الخزنة اتعملت','Vault created');
+  }else{
+    const v=V();try{VK=await derive(pw,ub(v.salt));await opn(v.check);VI=[];for(const it of v.items)VI.push({id:it.id,...JSON.parse(await opn(it.e))});addLog('in','الخزنة اتفتحت','Vault unlocked')}
+    catch(e){VK=null;vmsg=t('vBad');addLog('wr','محاولة فاشلة لفتح الخزنة','Failed vault unlock attempt')}
+  }
+  view();
+}
+function lockVault(){if(VK){VK=null;VI=[];if(sub==='vault')view()}}
+async function vAdd(){
+  const ti=$('#vt').value.trim(),x=$('#vx').value;if(!ti&&!x)return;
+  const v=V(),id=Date.now();v.items.push({id,e:await seal(JSON.stringify({t:ti,x}))});p('bg_vault',v);VI.push({id,t:ti,x});view();
+}
+function vDel(id){const v=V();v.items=v.items.filter(i=>i.id!==id);p('bg_vault',v);VI=VI.filter(i=>i.id!==id);view()}
+
+// ---------- assistant ----------
+let CH=[];
+function ans(q){
+  q=q.toLowerCase();const al=isAlert(),r=(a,e)=>lang==='ar'?a:e;
+  const bd=LOG.filter(l=>l.sev==='bd').slice(0,3).map(l=>'- '+l[lang]).join('\n');
+  if(/حالة|status|خطر|risk|آمن|secure/.test(q))return al?r('الحالة: تنبيه. آخر الأحداث الخطرة:\n'+bd,'Status: ALERT. Recent high-risk events:\n'+bd):r('الحالة: آمن. درجة الخطر '+RISK+'%. '+(B.mode==='learn'?'لسه في وضع التعلّم ('+B.n+'/'+TARGET+').':'المراقبة شغّالة.'),'Status: SECURE. Risk '+RISK+'%. '+(B.mode==='learn'?'Still learning ('+B.n+'/'+TARGET+').':'Monitoring is active.'));
+  if(/لماذا|ليه|why|alert|تنبيه/.test(q))return bd?r('أسباب التنبيهات الأخيرة:\n'+bd,'Reasons for recent alerts:\n'+bd):r('مفيش تنبيهات خطيرة دلوقتي.','No high-risk alerts right now.');
+  if(/باسورد|كلمة مرور|كلمة سر|password/.test(q))return r('استخدم كلمة سر طويلة (14+ حرف) مختلفة لكل حساب، ومدير كلمات سر، وفعّل التحقق بخطوتين. ماتستخدمش كلمة سر الخزنة في أي مكان تاني.','Use long (14+ chars) unique passwords per account, a password manager, and two-factor authentication. Never reuse your vault password.');
+  if(/واي فاي|wifi|wi-fi|عام|public/.test(q))return r('ماتدخلش على حسابات مهمة من شبكات عامة من غير VPN، وتأكد من HTTPS، وقفّل الاتصال التلقائي بالشبكات المفتوحة.','Avoid sensitive logins on public networks without a VPN, check for HTTPS, and disable auto-join for open networks.');
+  if(/تصيد|احتيال|رابط|لينك|phish|scam|link/.test(q))return r('ماتضغطش على لينكات في رسائل مستعجلة. افحص اسم الموقع كويس، وادخل عليه بنفسك، وماتبعتش أكواد التحقق لأي حد.','Do not click links in urgent messages. Check the exact domain, navigate manually, and never share verification codes.');
+  if(/خزنة|vault/.test(q))return r('الخزنة بتشفّر بياناتك بـ AES-256 على جهازك. اختار كلمة سر قوية، لأنها ماتتسترجعش لو نسيتها.','The vault encrypts data with AES-256 on your device. Pick a strong password; it cannot be recovered.');
+  if(/فحص|scan/.test(q))return SC?r('آخر فحص لقى '+SC.R.filter(x=>!x.ok).length+' ملاحظة. راجع تبويب الفحص.','Last scan found '+SC.R.filter(x=>!x.ok).length+' finding(s). See the Scan tab.'):r('ماعملتش فحص لسه. افتح تبويب الفحص.','No scan yet. Open the Scan tab.');
+  if(/تحديث|update/.test(q))return r('حدّث النظام والمتصفح والتطبيقات دايماً؛ أغلب الاختراقات بتستغل ثغرات معروفة.','Keep OS, browser and apps updated; most breaches exploit known vulnerabilities.');
+  return r('أقدر أجاوبك عن: الحالة، سبب التنبيه، كلمات السر، الواي فاي، التصيد، الخزنة، الفحص، التحديثات.','I can answer about: status, alert reasons, passwords, Wi-Fi, phishing, vault, scan, updates.');
+}
+function send(){const i=$('#ci'),q=i.value.trim();if(!q)return;CH.push({m:1,x:q},{m:0,x:ans(q)});i.value='';view()}
+
+// ---------- views ----------
+const x=(a,e)=>lang==='ar'?a:e;
+const PRO=false;
+let EMG=g('bg_emg',false),PR=null,PH=null,BRS=null,RP=7,rst=0,welcomed=g('bg_wel',false);
+const dy=()=>new Date().toISOString().slice(0,10);
+function cnt(k){const o=g('bg_cnt',{});return o.d===dy()?(o[k]||0):0}
+function inc(k){let o=g('bg_cnt',{});if(o.d!==dy())o={d:dy()};o[k]=(o[k]||0)+1;p('bg_cnt',o)}
+const LIM={ph:5,ch:10};
+function dl(nm,tx,mt){try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([tx],{type:mt||'text/plain'}));a.download=nm;a.click()}catch(e){}}
+const loc=()=>lang==='ar'?'ar-EG':'en-US';
+function score(){let s=100;const d=Date.now()-864e5;
+  LOG.forEach(l=>{if(l.ts>d){if(l.sev==='bd')s-=12;else if(l.sev==='wr')s-=4}});
+  s-=SC?SC.R.filter(r=>!r.ok).length*5:8;if(B.mode==='learn')s-=6;if(!g('bg_notif',false))s-=4;
+  return Math.max(5,Math.min(100,Math.round(s)))}
+function ring(sc,al){const C=2*Math.PI*54;
+  return `<svg viewBox="0 0 140 140" width="200" height="200"><defs><linearGradient id="gr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset=".5" stop-color="#3b82f6"/><stop offset="1" stop-color="#a855f7"/></linearGradient></defs><circle cx="70" cy="70" r="54" fill="none" stroke="#1f2a55" stroke-width="10"/><circle cx="70" cy="70" r="54" fill="none" stroke="${al?'#fb4b6a':'url(#gr)'}" stroke-width="10" stroke-linecap="round" stroke-dasharray="${C*sc/100} ${C}" transform="rotate(-90 70 70)"/><text x="70" y="76" text-anchor="middle" font-size="36" font-weight="700" fill="#e8edff">${sc}</text><text x="70" y="96" text-anchor="middle" font-size="11" fill="#8a96c4">/ 100</text></svg>`}
+const SHIELD=`<svg viewBox="0 0 120 140" width="130" height="150"><defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset=".5" stop-color="#3b82f6"/><stop offset="1" stop-color="#a855f7"/></linearGradient></defs><path d="M60 8l48 18v38c0 36-20 60-48 72C32 124 12 100 12 64V26z" fill="url(#g2)"/><path d="M34 56l16 38 10-24 10 24 16-38" fill="none" stroke="#070b1a" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const logRow=l=>`<div class="it ${l.sev}"><small>${new Date(l.ts).toLocaleString(loc())}</small><br>${esc(l[lang])}</div>`;
+const ttl=(ic,a,e)=>`<h2 class="ph">${ic} ${x(a,e)}</h2>`;
+const back=()=>`<div class="bk" onclick="sub=null;view()">${lang==='ar'?'→':'←'} ${x('رجوع','Back')}</div>`;
+function card(ic,a,e,d1,d2,act,st){return `<div class="c row" onclick="${act}"><div class="ic">${ic}</div><div><b>${x(a,e)}</b><br><small>${x(d1,d2)}</small></div>${st?`<span class="tg">${st}</span>`:''}</div>`}
+
+// nav
+
+function nav(){const nv=$('#nv');nv.style.display=welcomed?'flex':'none';nv.innerHTML=TABS.map(([k,i,a,e])=>`<a class="${tab===k?'on':''}" onclick="go('${k}')"><span>${i}</span>${x(a,e)}</a>`).join('')}
+function go(k){tab=k;sub=null;view()}
+function op(a,b){tab=a;sub=b;if(b==='privacy')loadPriv();view()}
+function setLang(){lang=lang==='ar'?'en':'ar';p('bg_lang',lang);document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';view()}
+
+// welcome + home
+function welcome(){return `<div class="wel"><div class="shield">${SHIELD}</div><h1 class="logo">WIZIX</h1><p>${x('حماية ذكية بتتعلّم سلوكك وتكتشف أي حاجة غريبة','Smart protection that learns your behavior and spots anything unusual')}</p><button class="p big" onclick="welcomed=true;p('bg_wel',true);view()">${x('ابدأ الآن','Get Started')}</button><small>${x('كل بياناتك بتفضل على جهازك','All your data stays on your device')}</small></div>`}
+function home(){
+  const al=isAlert(),sc=score(),r=LOG.filter(l=>Date.now()-l.ts<864e5&&(l.sev==='bd'||l.sev==='wr')).length;let h='';
+  if(EMG)h+=`<div class="c em" onclick="op('protect','emg')">🚨 ${x('وضع الطوارئ شغّال','Emergency mode is ON')}</div>`;
+  h+=`<div class="c hero"><div class="pul">${ring(sc,al)}</div><b class="st ${al?'rd':'gn'}">${al?t('alert'):t('secure')}</b><small>${al?x('لقينا نشاط غريب. راجع السجل.','Unusual activity detected. Check the log.'):x('مفيش نشاط مشبوه','No suspicious activity')}</small></div>`;
+  h+=`<div class="g3"><div class="c mini"><span>🧠</span><b>${B.mode==='learn'?B.n+'/'+TARGET:RISK+'%'}</b><small>${B.mode==='learn'?x('بيتعلّم','Learning'):x('الخطر','Risk')}</small></div><div class="c mini"><span>🔍</span><b>${SC?new Date(SC.ts).toLocaleTimeString(loc(),{hour:'2-digit',minute:'2-digit'}):'—'}</b><small>${x('آخر فحص','Last scan')}</small></div><div class="c mini"><span>🔔</span><b>${r}</b><small>${x('تنبيهات 24س','Alerts 24h')}</small></div></div>`;
+  h+=`<button class="p big" onclick="go('scan');scan()">⚡ ${x('افحص الآن','Scan now')}</button>`;
+  h+=`<div class="c"><h3>${x('آخر الأحداث','Recent activity')}</h3>`+(LOG.length?LOG.slice(0,4).map(logRow).join(''):`<small>${t('nolog')}</small>`)+`</div>`;
+  return h}
+
+// protection center
+function protect(){
+  if(sub==='behavior')return behav();if(sub==='vault')return vaultV();if(sub==='privacy')return privV();if(sub==='emg')return emgV();
+  return ttl('🛡️','مركز الحماية','Protection Center')+
+  card('🧠','كشف السلوك الذكي','Smart Behavior Detection','بيتعلّم نشاطك الطبيعي ويكتشف الغريب','Learns your normal activity, flags the unusual',"op('protect','behavior')",B.mode==='learn'?x('بيتعلّم','Learning'):x('شغّال','Active'))+
+  card('🔐','الخزنة الآمنة','Secure Vault','تشفير AES-256 على جهازك','AES-256 encryption on your device',"op('protect','vault')",V()?(VK?x('مفتوحة','Open'):x('مقفلة','Locked')):x('جديدة','New'))+
+  card('👁️','محلل الخصوصية','Privacy Analyzer','صلاحيات الكاميرا والمايك والموقع','Camera, mic and location permissions',"op('protect','privacy')")+
+  card('🔔','إشعارات الحماية','Active Protection','تنبيهات فورية عند الخطر','Instant alerts when something is wrong',"toggleNotif().then(view)",g('bg_notif',false)?'ON':'OFF')+
+  card('🚨','وضع الطوارئ','Emergency Mode','بيقفل الحاجات الحساسة ويعرض خطوات التصرف','Locks sensitive features, shows response steps',"op('protect','emg')",EMG?'ON':'OFF')}
+function behav(){
+  let h=back()+ttl('🧠','كشف السلوك الذكي','Smart Behavior Detection');
+  h+=`<div class="c"><h3>${B.mode==='learn'?t('learn'):t('mon')}</h3><div class="bar"><i style="width:${B.mode==='learn'?B.n/TARGET*100:Math.max(RISK,3)}%"></i></div><small>${B.mode==='learn'?t('win')+': '+B.n+'/'+TARGET:t('risk')+': '+RISK+'%'}</small><p class="m">${x('استخدم الجهاز عادي (اكتب، مرّر، دوس) وهو بيتعلّم.','Use the device normally (type, scroll, tap) while it learns.')}</p><div class="r"><button onclick="B={mode:'learn',n:0,st:{}};p('bg_b',B);LZ=null;RISK=0;view()">${t('relearn')}</button></div></div>`;
+  if(LF){h+=`<div class="c tb"><table><tr><th>${t('metric')}</th><th>${t('now')}</th><th>${t('usual')}</th><th>${t('dev')}</th></tr>`;
+    F.forEach(f=>{const s=B.st[f],z=LZ&&LZ[f]!=null?LZ[f]:null,c=z===null?'':z>=4?'bd':z>=2.5?'wr':'ok';h+=`<tr><td>${t(f)}</td><td>${LF[f]===null?'-':Math.round(LF[f])}</td><td>${s?Math.round(s.m):'-'}</td><td class="${c}">${z===null?'-':z.toFixed(1)+'σ'}</td></tr>`});h+='</table></div>'}
+  return h}
+function vaultV(){
+  let h=back()+ttl('🔐','الخزنة الآمنة','Secure Vault');
+  if(EMG)return h+`<div class="c bd">${x('الخزنة مقفولة وقت وضع الطوارئ.','Vault is disabled during Emergency Mode.')}</div>`;
+  const v=V();
+  if(!v)h+=`<div class="c"><small>${t('vSetup')}</small><input id="vpw" type="password" placeholder="${t('vPw')}"><div class="bd">${vmsg}</div><div class="r"><button class="p" onclick="vOpen(true)">${t('vMk')}</button></div></div>`;
+  else if(!VK)h+=`<div class="c"><input id="vpw" type="password" placeholder="${t('vPw')}"><div class="bd">${vmsg}</div><div class="r"><button class="p" onclick="vOpen(false)">${t('vOpen')}</button></div></div>`;
+  else{h+=`<div class="c"><input id="vt" placeholder="${t('vTitle')}"><textarea id="vx" rows="3" placeholder="${t('vText')}"></textarea><div class="r"><button class="p" onclick="vAdd()">${t('vAdd')}</button><button onclick="lockVault()">${t('vLock')}</button></div></div>`;
+    h+=VI.map(i=>`<div class="c"><b>${esc(i.t)}</b><div style="white-space:pre-wrap">${esc(i.x)}</div><div class="r"><button class="d" onclick="vDel(${i.id})">${t('vDel')}</button></div></div>`).join('')}
+  return h+`<small>${t('vNote')}</small>`}
+async function loadPriv(){PR=null;const L=[['geolocation','📍','الموقع','Location'],['camera','📷','الكاميرا','Camera'],['microphone','🎤','المايك','Microphone'],['notifications','🔔','الإشعارات','Notifications'],['clipboard-read','📋','قراءة الحافظة','Clipboard read']];const o=[];
+  for(const [k,ic,a,b] of L){let st='n/a';try{st=(await n.permissions.query({name:k})).state}catch(er){}o.push({ic,l:x(a,b),st})}PR=o;view()}
+function privV(){
+  let h=back()+ttl('👁️','محلل الخصوصية','Privacy Analyzer');
+  h+=`<div class="c">`+(PR?PR.map(r=>`<div class="it ${r.st==='granted'?'wr':r.st==='denied'?'ok':''}">${r.ic} ${r.l}: <b>${r.st}</b></div>`).join(''):`<small>...</small>`)+`</div>`;
+  return h+`<small>${x('بيعرض صلاحيات الموقع ده في متصفحك بس. صلاحيات تطبيقات الموبايل راجعها من إعدادات النظام (Privacy).','Shows this site permissions in your browser only. Review phone app permissions in system settings (Privacy).')}</small>`}
+const STEPS=[['افصل الجهاز عن النت/الواي فاي','Disconnect the device from the internet/Wi-Fi'],['غيّر كلمات سر الإيميل والبنك من جهاز نضيف','Change email and banking passwords from a clean device'],['فعّل التحقق بخطوتين','Enable two-factor authentication'],['راجع نشاط الدخول وأنهِ الجلسات الغريبة','Review login activity and end unknown sessions'],['حدّث النظام والمتصفح','Update OS and browser'],['افحص الجهاز ببرنامج حماية موثوق','Scan with a trusted antivirus'],['بلّغ البنك لو الموضوع مالي','Tell your bank if money is involved']];
+function setEmg(on){EMG=on;p('bg_emg',on);lockVault();addLog(on?'bd':'ok',on?'وضع الطوارئ اتفعّل':'وضع الطوارئ اتقفل',on?'Emergency mode activated':'Emergency mode deactivated');view()}
+function emgV(){return back()+ttl('🚨','وضع الطوارئ','Emergency Mode')+`<div class="c"><p>${EMG?x('شغّال: الخزنة والنسخ الاحتياطي مقفولين.','Active: vault and backup are disabled.'):x('بيقفل الخزنة والنسخ الاحتياطي مؤقتاً ويعرضلك خطوات التصرف مع الحادث.','Temporarily disables vault and backup and shows incident steps.')}</p><div class="r"><button class="p" onclick="setEmg(${!EMG})">${EMG?x('اقفل وضع الطوارئ','Turn off'):x('شغّل وضع الطوارئ','Activate Emergency Mode')}</button></div></div><div class="c"><h3>${x('خطوات التصرف','Response steps')}</h3>`+STEPS.map(s=>`<div class="it">☐ ${x(s[0],s[1])}</div>`).join('')+`</div>`}
+
+// Evidence-based audit summary. Inventory is not a malware scan.
+function auditData(){
+ const w=winReport||{}, arr=k=>Array.isArray(w[k])?w[k]:[], sec=w.security||{}, def=sec.defender||{};
+ const raw=sec.detections, detections=Array.isArray(raw)?raw:(raw&&raw.ThreatID?[raw]:[]);
+ const confirmed=detections.filter(d=>d&&d.ThreatID!==undefined);
+ const suspicious=[], weak=[], normal=[];
+ const add=(a,title,detail)=>a.push({title:String(title),detail:String(detail||'')});
+ if(def&&typeof def==='object'){
+  if(def.AntivirusEnabled===false)add(weak,'Microsoft Defender antivirus is disabled','Enable antivirus protection in Windows Security.');
+  if(def.RealTimeProtectionEnabled===false)add(weak,'Real-time protection is disabled','Turn real-time protection back on.');
+  if(def.BehaviorMonitorEnabled===false)add(weak,'Behavior monitoring is disabled','Review Defender protection settings.');
+  if(def.IoavProtectionEnabled===false)add(weak,'Downloaded-file scanning is disabled','Review IOAV protection in Windows Security.');
+ }
+ const fw=Array.isArray(sec.firewall)?sec.firewall:(sec.firewall?[sec.firewall]:[]);
+ fw.forEach(f=>{if(f&&f.Enabled===false)add(weak,'Windows Firewall profile is disabled',String(f.Name||'Profile')+' firewall is off. Enable it unless there is a documented reason.');});
+ arr('startup').forEach(o=>{const cmd=String(o.Command||o.command||'');if(/\\AppData\\Local\\Temp\\|\\Users\\Public\\| -enc(odedcommand)?\b|powershell.{0,80}-windowstyle\s+hidden/i.test(cmd))add(suspicious,o.Name||o.name||'Unusual startup command','A startup command uses a location or option sometimes abused by malware. This is not proof of infection; inspect its publisher and file signature.');});
+ // Ordinary inventory entries are informational, not threats.
+ add(normal,arr('apps').length+' installed applications inventoried','Application inventory only; application names are not treated as malware verdicts.');
+ add(normal,arr('processes').length+' running processes inventoried','Process inventory only; unknown names are not automatically suspicious.');
+ const items=arr('apps').length+arr('processes').length+arr('startup').length+arr('network').length+arr('extensions').length;
+ const recs=[];
+ if(weak.length)recs.push('Fix the listed Windows Security and Firewall settings, then run the audit again.');
+ if(suspicious.length)recs.push('Review flagged startup entries, verify publisher and digital signature, and scan the referenced file with Microsoft Defender.');
+ if(confirmed.length)recs.push('Open Windows Security > Virus & threat protection > Protection history and follow Microsoft Defender remediation guidance.');
+ if(!recs.length)recs.push('No weak settings or suspicious startup indicators were found in the collected inventory. Keep Windows and security signatures updated.');
+ return {generated:w.generated||new Date().toISOString(),system:w.system||{},counts:{items,apps:arr('apps').length,processes:arr('processes').length,startup:arr('startup').length,network:arr('network').length,extensions:arr('extensions').length,files:0},confirmed,suspicious,weak,normal,recs,defender: def,firewall:fw,filesNote:'No individual file contents were inventoried by this audit. Microsoft Defender performs the actual malware scan.'};
+}
+function auditPrint(){
+ if(!winReport)return;
+ const a=auditData(), escH=v=>String(v??'—').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const rows=(xs,kind)=>xs.length?xs.map(o=>`<tr><td>${escH(o.title||('Microsoft Defender detection '+(o.ThreatID||'')))}</td><td>${escH(o.detail||('Threat ID: '+(o.ThreatID||'')+' · Status: '+(o.ThreatStatusID??'unknown')+' · Action successful: '+(o.ActionSuccess??'unknown')))}</td></tr>`).join(''):`<tr><td colspan="2">${kind==='confirmed'?'No Defender detection records were returned.':'None found in the collected data.'}</td></tr>`;
+ const w=window.open('','_blank');if(!w){alert(lang==='ar'?'اسمح بفتح النافذة المنبثقة لحفظ التقرير PDF.':'Allow pop-ups to print the PDF report.');return;}
+ w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>WIZIX Security Audit</title><style>body{font:14px Arial,sans-serif;color:#172033;margin:32px}h1{color:#172554}h2{margin-top:26px;border-bottom:1px solid #ccd3df;padding-bottom:6px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.box{border:1px solid #ccd3df;border-radius:8px;padding:12px}.num{font-size:24px;font-weight:bold}table{width:100%;border-collapse:collapse}td,th{border:1px solid #ccd3df;padding:8px;text-align:left;vertical-align:top}.muted{color:#586579}.warn{color:#9a5700}.bad{color:#b42335}.good{color:#087443}@media print{button{display:none}body{margin:14mm}}</style></head><body><button onclick="window.print()">Print / Save as PDF</button><h1>WIZIX — Security Audit Report</h1><p class="muted">Generated: ${escH(a.generated)} · Device: ${escH(a.system.computer||'Not available')} · OS: ${escH(a.system.os||'Not available')}</p><div class="grid"><div class="box"><div class="num">${a.counts.items}</div>Inventory items reviewed</div><div class="box"><div class="num">${a.counts.apps}</div>Installed programs</div><div class="box"><div class="num">${a.counts.files}</div>Individual files content-scanned by WIZIX</div><div class="box"><div class="num bad">${a.confirmed.length}</div>Microsoft Defender detection records</div><div class="box"><div class="num warn">${a.suspicious.length}</div>Suspicious indicators</div><div class="box"><div class="num warn">${a.weak.length}</div>Weak protection settings</div></div><p class="muted">Inventory totals include applications, processes, startup entries, network connections and browser extensions. Inventory is not equivalent to file malware scanning.</p><h2 class="bad">Confirmed detections — Defender</h2><table><tr><th>Detection</th><th>Details</th></tr>${rows(a.confirmed,'confirmed')}</table><h2 class="warn">Suspicious indicators — review required</h2><table><tr><th>Indicator</th><th>Why it was flagged</th></tr>${rows(a.suspicious,'suspicious')}</table><h2 class="warn">Weak protection settings</h2><table><tr><th>Setting</th><th>Recommendation</th></tr>${rows(a.weak,'weak')}</table><h2 class="good">Normal / informational observations</h2><table><tr><th>Observation</th><th>Meaning</th></tr>${rows(a.normal,'normal')}</table><h2>Repair recommendations</h2><ol>${a.recs.map(x=>`<li>${escH(x)}</li>`).join('')}</ol><h2>Scope and limitations</h2><p>${escH(a.filesNote)} WIZIX does not delete, quarantine or disable items automatically. Suspicious indicators are not confirmed malware. Review Defender Protection History for current and resolved detections.</p><p class="muted">WIZIX local security audit · Read-only inventory</p></body></html>`);
+ w.document.close();w.focus();setTimeout(()=>w.print(),400);
+}
+
+// scan
+function scanV(){
+ const ar=lang==='ar';
+ const title=ttl('🔍','الفحص الشامل للكمبيوتر','Full Windows Security Scan');
+ let h=title+`<div class="c"><h3>🖥️ ${ar?'محرك فحص Windows المحلي':'Local Windows scan engine'}</h3><p class="m">${ar?'اتصل بمحرك محلي على جهازك لجمع معلومات النظام والبرامج والعمليات والشبكة وإعدادات الحماية. الفحص هنا للقراءة فقط.':'Connects to a local agent to inspect system, installed apps, processes, network and security settings. Inventory is read-only.'}</p><div class="r"><button class="p" onclick="scan()" ${scanning?'disabled':''}>${scanning?'⏳ '+(ar?'جاري الفحص':'Scanning...'):(ar?'ابدأ الفحص الشامل':'Start full inventory scan')}</button><button onclick="refreshWinReport()" ${scanning?'disabled':''}>↻ ${ar?'تحديث التقرير':'Refresh report'}</button></div></div>`;
+ h+=`<div class="c"><h3>🛡️ Microsoft Defender</h3><p class="m">${ar?'الفحص الفعلي للملفات يتم بواسطة Microsoft Defender المدمج في Windows. يمكنك بدء فحص سريع أو كامل بموافقتك.':'Actual malware scanning is performed by built-in Microsoft Defender. Start a quick or full scan with your approval.'}</p><div class="r"><button class="p" onclick="runDefender('quick')" ${defenderBusy?'disabled':''}>${ar?'فحص سريع':'Quick scan'}</button><button onclick="runDefender('full')" ${defenderBusy?'disabled':''}>${ar?'فحص كامل':'Full scan'}</button></div></div>`;
+ h+=fileBrowserView();
+ h+=`<div class="c"><h3>🔗 ${ar?'فحص رابط':'URL check'}</h3><p class="m">${ar?'تحليل محلي مبدئي لعلامات قد تستحق المراجعة. لا يثبت أن الرابط آمن أو ضار.':'Local heuristic review for indicators. It cannot prove a URL is safe or malicious.'}</p><input id="wizix-url" placeholder="https://example.com"><button class="p" onclick="checkUrl()">${ar?'حلّل الرابط':'Analyze URL'}</button>${URLR?`<div class="it ${URLR.error||URLR.flags?.length?'wr':'ok'}">${esc(URLR.error||URLR.verdict)}${URLR.host?` — ${esc(URLR.host)}`:''}</div>${(URLR.flags||[]).map(f=>`<div class="it wr">⚠ ${esc(f)}</div>`).join('')}<small>${esc(URLR.note||'')}</small>`:''}</div>`;
+ if(!winReport)h+=`<div class="c"><b>${ar?'لم يتم إجراء فحص Windows بعد':'No Windows inventory scan yet'}</b><p class="m">${ar?'اضغط ابدأ الفحص الشامل لجمع التقرير.':'Press Start full inventory scan to collect a report.'}</p></div>`;
+ if(winReport){
+   const sections=[['system',ar?'معلومات الجهاز والنظام':'Device & OS'],['apps',ar?'البرامج المثبتة':'Installed applications'],['processes',ar?'العمليات النشطة':'Running processes'],['startup',ar?'برامج بدء التشغيل':'Startup entries'],['security',ar?'حالة الحماية':'Security status'],['network',ar?'اتصالات الشبكة':'Network connections'],['extensions',ar?'إضافات المتصفحات':'Browser extensions']];
+   const audit=auditData();
+   h+=`<div class="c"><h3>📊 ${ar?'ملخص الفحص':'Scan summary'}</h3><div class="g3"><div class="mini"><b>${audit.counts.items}</b><small>${ar?'عنصر تمت مراجعته':'Inventory items'}</small></div><div class="mini"><b>${audit.counts.apps}</b><small>${ar?'برنامج':'Apps'}</small></div><div class="mini"><b>${audit.counts.processes}</b><small>${ar?'عملية':'Processes'}</small></div></div><div class="g3"><div class="mini"><b class="rd">${audit.confirmed.length}</b><small>${ar?'تهديدات مؤكدة من Defender':'Defender detections'}</small></div><div class="mini"><b class="am">${audit.suspicious.length}</b><small>${ar?'مؤشرات اشتباه':'Suspicious indicators'}</small></div><div class="mini"><b class="am">${audit.weak.length}</b><small>${ar?'إعدادات ضعيفة':'Weak settings'}</small></div></div><small>${ar?'الملفات التي فحص WIZIX محتواها مباشرة: 0. الفحص الفعلي للملفات يتم بواسطة Defender.':'Individual file contents scanned directly by WIZIX: 0. Defender performs actual file scanning.'}</small><br><small>${ar?'وقت التقرير: ':'Report time: '}${esc(winReport.generated||'')}</small><div class="r" style="margin-top:12px"><button class="p" onclick="auditPrint()">📄 ${ar?'حفظ التقرير PDF':'Save PDF report'}</button></div></div>`;
+   h+=`<div class="c"><h3>🧾 ${ar?'تصنيف النتائج':'Finding classification'}</h3><div class="it rd"><b>${ar?'تهديد مؤكد':'Confirmed'}</b> — ${ar?'سجل كشف صادر من Microsoft Defender؛ راجع سجل الحماية لمعرفة الحالة والإجراء.':'A Microsoft Defender detection record; check Protection History for status and action.'}</div><div class="it am"><b>${ar?'مؤشر اشتباه':'Suspicious'}</b> — ${ar?'علامة تستحق المراجعة وليست دليلاً على الإصابة.':'An indicator to review, not proof of infection.'}</div><div class="it gn"><b>${ar?'معلومة طبيعية':'Normal'}</b> — ${ar?'جرد معلوماتي لا يُصنّف كتهديد.':'Informational inventory, not classified as a threat.'}</div></div>`;
+   for(const [key,label] of sections){
+    const arr=winReport[key]; h+=`<div class="c"><h3>${label} <span class="tg">${Array.isArray(arr)?arr.length:(arr?'OK':'N/A')}</span></h3>`;
+    if(Array.isArray(arr)){if(!arr.length)h+=`<small>${ar?'لا توجد بيانات أو لم يتم العثور على عناصر.':'No entries returned.'}</small>`;else h+=arr.map(o=>`<div class="it"><b>${esc(o.name||o.Name||o.displayName||o.process||o.local||o.key||'—')}</b><br><small>${esc(o.detail||o.version||o.publisher||o.path||o.status||o.remote||JSON.stringify(o).slice(0,240))}</small></div>`).join('')}
+    else if(arr&&typeof arr==='object')h+=Object.entries(arr).map(([k,v])=>`<div class="it"><b>${esc(k)}</b>: ${esc(typeof v==='object'?JSON.stringify(v):String(v))}</div>`).join('');
+    else h+=`<small>${ar?'تعذر الحصول على هذه البيانات.':'Data unavailable.'}</small>`; h+='</div>';
+   }
+   h+=`<div class="c"><h3>⚠️ ${ar?'حدود الفحص':'Scan limitations'}</h3><p class="m">${ar?'هذا تقرير جرد ومراجعة إعدادات. لا يعتبر كل برنامج أو اتصال تهديدًا. فحص الملفات ضد البرمجيات الخبيثة ينفذه Microsoft Defender، وقد يحتاج صلاحيات مسؤول. لا يتم حذف أو عزل أي ملف تلقائيًا.':'This is an inventory and configuration review, not a malware verdict. Microsoft Defender performs malware scanning and may require administrator privileges. Nothing is deleted or quarantined automatically.'}</p></div>`;
+ }
+ return h;
+}
+
+// tools
+function tools(){
+  if(sub==='phish')return phV();if(sub==='breach')return brV();if(sub==='chat')return chV();if(sub==='rep')return repV();if(sub==='ana')return anV();if(sub==='backup')return bkV();if(sub==='logs')return lgV();
+  return ttl('🧰','الأدوات','Tools')+
+  card('🎣','كاشف التصيد','Phishing Detector','حلّل لينك أو رسالة','Analyze a link or message',"op('tools','phish')",PRO?'':cnt('ph')+'/'+LIM.ph)+
+  card('🔑','فحص تسريب كلمة السر','Password Breach Check','كلمة سرك ظهرت في تسريبات؟','Has your password appeared in leaks?',"op('tools','breach')")+
+  card('💬','مساعد Wizix','Wizix Assistant','اسأل عن أي تنبيه أو نصيحة','Ask about alerts and advice',"op('tools','chat')",PRO?'':cnt('ch')+'/'+LIM.ch)+
+  card('📊','التقارير','Security Reports','تقرير أسبوعي وشهري','Weekly and monthly summary',"op('tools','rep')")+
+  card('📈','التحليلات','Analytics','رسوم بيانية للنشاط والتنبيهات','Charts of activity and alerts',"op('tools','ana')")+
+  card('💾','نسخ احتياطي مشفّر','Secure Backup','صدّر/استورد الخزنة','Export/import your vault',"op('tools','backup')")+
+  card('📋','سجل النشاط','Activity Logs','كل الأحداث المسجلة','All recorded events',"op('tools','logs')")}
+const BR=['paypal','apple','google','microsoft','amazon','facebook','instagram','whatsapp','netflix','vodafone','etisalat','fawry','binance'];
+const BTLD=['zip','xyz','top','tk','ml','ga','cf','click','link','gq','work','loan'];
+const SHORT=['bit.ly','tinyurl.com','t.co','goo.gl','cutt.ly','is.gd','rebrand.ly'];
+function chkUrl(u){
+  let s=0;const r=[],add=(k,a,b)=>{s+=k;r.push(x(a,b))};let U;
+  try{U=new URL(/^https?:\/\//i.test(u)?u:'https://'+u)}catch(er){return{s:0,r:[x('اللينك مش صالح','Invalid URL')]}}
+  const h=U.hostname.toLowerCase(),pt=h.split('.'),tld=pt[pt.length-1],dom=pt.slice(-2).join('.'),L=pt.length;
+  if(/^http:\/\//i.test(u))add(25,'من غير تشفير HTTPS','Not using HTTPS');
+  if(/^\d+\.\d+\.\d+\.\d+$/.test(h))add(30,'اللينك عنوان IP بدل اسم موقع','Host is a raw IP address');
+  if(u.includes('@'))add(25,'فيه @ علشان يخبّي الوجهة','Contains @ to hide the destination');
+  if(h.includes('xn--'))add(25,'نطاق بحروف مموّهة (Punycode)','Lookalike characters (Punycode)');
+  if(L>4)add(10,'نطاقات فرعية كثيرة','Too many subdomains');
+  if(u.length>100)add(8,'لينك طويل جداً','Very long URL');
+  if(BTLD.includes(tld))add(15,'امتداد شائع في الاحتيال: .'+tld,'TLD often abused: .'+tld);
+  const bm=BR.find(b=>h.includes(b));
+  if(bm){const okd=pt[L-2]===bm||(pt[L-3]===bm&&['com','co','org','net','gov','edu'].includes(pt[L-2]));if(!okd)add(30,'بيقلّد اسم علامة تجارية: '+bm,'Impersonates brand: '+bm)}
+  if(SHORT.includes(dom))add(15,'لينك مختصر بيخبّي الوجهة','URL shortener hides destination');
+  if((h.match(/-/g)||[]).length>=2)add(10,'شرطات كثيرة في اسم النطاق','Many hyphens in domain');
+  const kw=new Set((U.pathname+U.search).toLowerCase().match(/login|verify|update|secure|account|password|confirm|signin|wallet|otp/g)||[]);
+  if(kw.size)add(Math.min(16,kw.size*8),'كلمات حساسة في اللينك: '+[...kw].join(', '),'Sensitive words in URL: '+[...kw].join(', '));
+  return{s:Math.min(100,s),r}}
+function analyze(q){
+  const urls=q.match(/(https?:\/\/[^\s]+|(?:[\w-]+\.)+[a-z]{2,}(?:\/[^\s]*)?)/gi)||[],isUrl=!/\s/.test(q)&&urls.length;let best={s:0,r:[]};
+  urls.slice(0,5).forEach(u=>{const k=chkUrl(u);if(k.s>=best.s)best=k});
+  if(!isUrl){let up=0;const rr=[];[[/urgent|عاجل|immediately|فورا|فوراً/i,'كلام استعجال','Urgency wording'],[/suspend|blocked|إيقاف|تعليق|حظر/i,'تهديد بوقف الحساب','Account suspension threat'],[/verify|confirm|تأكيد|تحقق|تحديث بيانات/i,'طلب تأكيد بيانات','Asks to verify details'],[/otp|رمز التحقق|كود التفعيل|password|كلمة المرور|pin/i,'بيطلب كود أو كلمة سر','Asks for code or password'],[/won|prize|اربح|جائزة|مبروك/i,'عرض جائزة','Prize bait']].forEach(([re,a,b])=>{if(re.test(q)){up+=12;rr.push(x(a,b))}});
+    best={s:Math.min(100,best.s+up),r:best.r.concat(rr)}}
+  if(!best.r.length)best.r=[x('ماظهرتش مؤشرات تصيد معروفة','No known phishing indicators found')];
+  return best}
+function phCheck(){const q=$('#pi').value.trim();if(!q)return;
+  if(!PRO&&cnt('ph')>=LIM.ph){PH={s:0,r:[x('خلص الحد اليومي في النسخة المجانية','Daily free limit reached')]};return view()}
+  inc('ph');PH=analyze(q);addLog(PH.s>=50?'bd':PH.s>=25?'wr':'in','فحص تصيد: '+PH.s+'/100','Phishing check: '+PH.s+'/100');view()}
+function phV(){
+  let h=back()+ttl('🎣','كاشف التصيد','Phishing Detector')+`<div class="c"><textarea id="pi" rows="4" placeholder="${x('الزق لينك أو رسالة مشبوهة','Paste a suspicious link or message')}"></textarea><div class="r"><button class="p" onclick="phCheck()">${x('افحص','Analyze')}</button></div><small>${x('المتبقي اليوم','Left today')}: ${PRO?'∞':Math.max(0,LIM.ph-cnt('ph'))}</small></div>`;
+  if(PH){const c=PH.s>=50?'bd':PH.s>=25?'wr':'ok';h+=`<div class="c"><b class="${c}">${PH.s>=50?x('خطير','Dangerous'):PH.s>=25?x('مشبوه','Suspicious'):x('مفيش مؤشرات واضحة','No clear red flags')} (${PH.s}/100)</b>`+PH.r.map(z=>`<div class="it">• ${esc(z)}</div>`).join('')+`<small>${x('تحليل بقواعد محلية ومش ضمان كامل.','Local rule-based analysis; not a guarantee.')}</small></div>`}
+  return h}
+async function breach(){const pw=$('#bp').value;if(!pw)return;
+  let c=0;if(/[a-z]/.test(pw))c+=26;if(/[A-Z]/.test(pw))c+=26;if(/\d/.test(pw))c+=10;if(/[^\w]/.test(pw))c+=32;const st=Math.round(pw.length*Math.log2(c||1));
+  try{const d=await crypto.subtle.digest('SHA-1',E.encode(pw)),hx=[...new Uint8Array(d)].map(b=>b.toString(16).padStart(2,'0')).join('').toUpperCase();
+    const tx=await (await fetch('https://api.pwnedpasswords.com/range/'+hx.slice(0,5))).text(),m=tx.split('\n').find(l=>l.startsWith(hx.slice(5)));
+    BRS={st,n:m?parseInt(m.split(':')[1]):0}}catch(er){BRS={st,err:1}}view()}
+function brV(){
+  let h=back()+ttl('🔑','فحص تسريب كلمة السر','Password Breach Check')+`<div class="c"><input id="bp" type="password" placeholder="${x('اكتب كلمة السر','Enter a password')}"><div class="r"><button class="p" onclick="breach()">${x('افحص','Check')}</button></div><small>${x('بيتبعت بس أول 5 حروف من بصمة SHA-1 (k-anonymity) وكلمة السر نفسها مابتسيبش جهازك.','Only the first 5 chars of the SHA-1 hash are sent (k-anonymity); the password itself never leaves your device.')}</small></div>`;
+  if(BRS){h+=`<div class="c"><div>${x('قوة التخمين التقريبية','Approx. strength')}: <b class="${BRS.st>=60?'ok':BRS.st>=40?'wr':'bd'}">${BRS.st} bits</b></div>`+(BRS.err?`<div class="wr">${x('مقدرتش أوصل لخدمة التسريبات. هتشتغل بعد ما تنشر التطبيق على دومين حقيقي وفيه نت.','Could not reach the breach service. Works once deployed on a real domain with internet.')}</div>`:BRS.n?`<div class="bd">⚠ ${x('ظهرت في تسريبات','Found in breaches')} ${BRS.n.toLocaleString()} ${x('مرة. ماتستخدمهاش.','times. Do not use it.')}</div>`:`<div class="ok">✔ ${x('ماظهرتش في التسريبات المعروفة','Not found in known breaches')}</div>`)+`</div>`}
+  return h}
+function chV(){return back()+ttl('💬','مساعد Wizix','Wizix Assistant')+`<div class="c">`+CH.map(m=>`<div class="msg ${m.m?'me':'bot'}">${esc(m.x)}</div>`).join('')+`<input id="ci" placeholder="${t('chIn')}" onkeydown="if(event.key==='Enter')send()"><div class="r"><button class="p" onclick="send()">${t('send')}</button></div></div><small>${t('chNote')}</small>`}
+function send(){const i=$('#ci'),q=i.value.trim();if(!q)return;
+  if(!PRO&&cnt('ch')>=LIM.ch){CH.push({m:0,x:x('خلص الحد اليومي للنسخة المجانية.','Daily free limit reached.')});return view()}
+  inc('ch');CH.push({m:1,x:q},{m:0,x:ans(q)});view();setTimeout(()=>{const e=$('#ci');e&&e.focus()},0)}
+function rep(d){const f=LOG.filter(l=>Date.now()-l.ts<d*864e5),c=s=>f.filter(l=>l.sev===s).length,hs=HIST.filter(h=>Date.now()-h.ts<d*864e5);
+  return{n:f.length,bd:c('bd'),wr:c('wr'),ok:c('ok'),inf:c('in'),w:hs.length,avg:hs.length?Math.round(hs.reduce((a,b)=>a+b.r,0)/hs.length):0,sc:SC?SC.R.filter(r=>!r.ok).length:null}}
+function repTxt(r){return `Wizix ${RP===7?'Weekly':'Monthly'} Report\n${new Date().toLocaleDateString()}\nEvents: ${r.n}\nHigh alerts: ${r.bd}\nWarnings: ${r.wr}\nBehavior windows: ${r.w} (avg risk ${r.avg}%)\nLast scan findings: ${r.sc===null?'n/a':r.sc}\nScore: ${score()}/100`}
+function repV(){
+  const r=rep(RP);
+  return back()+ttl('📊','التقارير','Security Reports')+`<div class="r"><button class="${RP===7?'p':''}" onclick="RP=7;view()">${x('أسبوعي','Weekly')}</button><button class="${RP===30?'p':''}" onclick="${PRO?'RP=30;view()':"go('profile')"}">${x('شهري','Monthly')} ${PRO?'':'🔒 Pro'}</button></div>`+
+  `<div class="g3" style="margin-top:12px"><div class="c mini"><b class="bd">${r.bd}</b><small>${x('خطيرة','High')}</small></div><div class="c mini"><b class="wr">${r.wr}</b><small>${x('تحذيرات','Warnings')}</small></div><div class="c mini"><b class="in">${r.n}</b><small>${x('أحداث','Events')}</small></div></div>`+
+  `<div class="c"><div>${x('فترات سلوك اتحلّلت','Behavior windows')}: <b>${r.w}</b> · ${x('متوسط الخطر','avg risk')}: <b>${r.avg}%</b></div><div>${x('ملاحظات آخر فحص','Last scan findings')}: <b>${r.sc===null?'—':r.sc}</b></div><div>${x('درجة الأمان','Security score')}: <b>${score()}/100</b></div><div class="r"><button onclick="dl('wizix-report.txt',repTxt(rep(RP)))">⬇ ${x('تنزيل','Download')}</button></div></div>`}
+function bars(v,lb,col){const mx=Math.max(1,...v),W=300,H=90,bw=W/v.length;return `<svg viewBox="0 0 ${W} ${H+16}" width="100%">`+v.map((a,i)=>`<rect x="${i*bw+5}" y="${H-a/mx*H}" width="${bw-10}" height="${Math.max(3,a/mx*H)}" rx="5" fill="${col}"/><text x="${i*bw+bw/2}" y="${H+12}" font-size="9" text-anchor="middle" fill="#8a96c4">${lb[i]}</text>`).join('')+`</svg>`}
+function line(v,col){if(v.length<2)return'';const mx=Math.max(1,...v),W=300,H=80,s=W/(v.length-1);return `<svg viewBox="0 0 ${W} ${H}" width="100%"><polyline fill="none" stroke="${col}" stroke-width="2.5" stroke-linejoin="round" points="${v.map((a,i)=>(i*s).toFixed(1)+','+(H-4-a/mx*(H-8)).toFixed(1)).join(' ')}"/></svg>`}
+function anV(){
+  const ds=[...Array(7)].map((_,i)=>new Date(Date.now()-(6-i)*864e5)),v=ds.map(d=>LOG.filter(l=>(l.sev==='bd'||l.sev==='wr')&&new Date(l.ts).toDateString()===d.toDateString()).length),lb=ds.map(d=>d.toLocaleDateString(loc(),{weekday:'short'})),hs=HIST.slice(-40);
+  return back()+ttl('📈','التحليلات','Analytics')+`<div class="c"><h3>${x('التنبيهات آخر 7 أيام','Alerts, last 7 days')}</h3>${bars(v,lb,'#a855f7')}</div><div class="c"><h3>${x('نشاط الجهاز والخطر','Device activity and risk')}</h3>`+(PRO?(hs.length>1?line(hs.map(a=>a.ev),'#22d3ee')+line(hs.map(a=>a.r),'#fb4b6a'):`<small>${t('nolog')}</small>`):`<small>🔒 ${x('التحليلات المتقدمة في Pro','Advanced analytics are in Pro')}</small>`)+`</div>`}
+function bkV(){
+  let h=back()+ttl('💾','نسخ احتياطي مشفّر','Secure Backup');
+  if(EMG)return h+`<div class="c bd">${x('مقفول وقت وضع الطوارئ.','Disabled during Emergency Mode.')}</div>`;
+  return h+`<div class="c"><small>${x('الملف مشفّر بنفس كلمة سر الخزنة. لو استوردت ملف هيبدّل الخزنة الحالية.','The file stays encrypted with your vault password. Importing replaces the current vault.')}</small><div class="r"><button class="p" onclick="V()?dl('wizix-vault-backup.json',JSON.stringify(V()),'application/json'):0">⬇ ${x('صدّر','Export')}</button></div><input type="file" accept=".json" onchange="imp(this)"></div>`}
+function imp(el){const f=el.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const o=JSON.parse(r.result);if(!o.salt||!o.check||!Array.isArray(o.items))throw 0;p('bg_vault',o);lockVault();addLog('ok','النسخة الاحتياطية اتستوردت','Backup imported');view()}catch(er){addLog('wr','ملف النسخة الاحتياطية مش صالح','Invalid backup file')}};r.readAsText(f)}
+function lgV(){return back()+ttl('📋','سجل النشاط','Activity Logs')+`<div class="c">`+(LOG.length?LOG.map(logRow).join(''):`<small>${t('nolog')}</small>`)+`<div class="r"><button class="d" onclick="LOG=[];p('bg_log',LOG);view()">${t('clr')}</button></div></div>`}
+
+// profile
+function resetAll(){if(!rst){rst=1;return view()}try{Object.keys(localStorage).filter(k=>k.startsWith('bg_')).forEach(k=>localStorage.removeItem(k))}catch(er){}location.reload()}
+function prof(){
+  const j=g('bg_wait',false),row=(a,b,c)=>`<tr><td>${x(a,b)}</td><td>${c[0]}</td><td>${c[1]}</td></tr>`;
+  return ttl('👤','حسابي','Profile')+`<div class="c"><h3>${x('اللغة','Language')}</h3><button class="p" onclick="setLang()">${lang==='ar'?'Switch to English':'التحويل للعربية'}</button></div>`+
+  `<div class="c pl tb"><h3>⭐ ${x('الخطط','Plans')}</h3><table><tr><th></th><th>Free</th><th>Pro</th></tr>${row('لوحة الأمان','Dashboard',['✔','✔'])}${row('سجل النشاط','Activity logs',['✔','✔'])}${row('كاشف التصيد','Phishing detector',['5/'+x('يوم','day'),'∞'])}${row('المساعد','Assistant',['10/'+x('يوم','day'),'∞'])}${row('تحليلات متقدمة','Advanced analytics',['—','✔'])}${row('تقارير شهرية','Monthly reports',['—','✔'])}</table><div class="r"><button class="p" onclick="p('bg_wait',true);view()">${j?'✔ '+t('joined'):t('join')}</button></div><small>${t('proNote')}</small></div>`+
+  `<div class="c"><button class="d" onclick="resetAll()">${rst?x('اضغط تاني للتأكيد','Tap again to confirm'):x('امسح كل البيانات','Erase all data')}</button></div><small>Wizix v1.0 · ${x('البيانات متخزّنة على جهازك بس','Data stays on your device')}</small>`}
+
+function view(){
+  nav();let h;
+  if(!welcomed)h=welcome();else if(tab==='home')h=home();else if(tab==='protect')h=protect();else if(tab==='scan')h=scanV();else if(tab==='tools')h=tools();else h=prof();
+  $('#v').innerHTML=h;
+}
+document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';
+READY=true;view();
+try{if(navigator.serviceWorker&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{})}catch(e){}
+</script>
+</body>
+</html>
